@@ -6,19 +6,19 @@ import { usePrize } from "../hooks/usePrize";
 
 export default function LandingPage() {
   const [activeScreen, setActiveScreen] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const {
     prize,
     prizeOrder,
     prizeSelection,
     tempPrizePos,
     scramblePrizes,
+    positionStyles,
     selectPrize,
     setVis,
     setTempPrizePos,
     setPrizeSelection,
   } = usePrize();
-
-  const [loaded, setLoaded] = useState(false);
 
   useGSAP(() => {
     gsap.to(".winner", { opacity: 1, delay: 2 });
@@ -33,34 +33,13 @@ export default function LandingPage() {
     }
   }, [prize]);
 
-  function resetFlow() {
-    setActiveScreen(0);
-    setPrizeSelection(0);
-  }
-
   function nextScreen() {
     setActiveScreen((prevScreen) => prevScreen + 1);
   }
 
-  function positionStyles(i) {
-    switch (i) {
-      case 0:
-        return `w-[10%] left-[10.7%] ${
-          prizeSelection - 1 === i ? "winner" : "notWinner"
-        }`;
-      case 1:
-        return `w-[10%] left-[34.7%] ${
-          prizeSelection - 1 === i ? "winner" : "notWinner"
-        }`;
-      case 2:
-        return `w-[10%] left-[58.4%] ${
-          prizeSelection - 1 === i ? "winner" : "notWinner"
-        }`;
-      case 3:
-        return `w-[10%] left-[82.4%] ${
-          prizeSelection - 1 === i ? "winner" : "notWinner"
-        }`;
-    }
+  function resetFlow() {
+    setActiveScreen(0);
+    setPrizeSelection(0);
   }
 
   function renderScreen() {
@@ -172,7 +151,7 @@ export default function LandingPage() {
         );
       case 6:
         return (
-          <div className="h-full w-full flex justify-center items-center bg-[#e30613]">
+          <div className="h-full w-full flex flex-col justify-center items-center bg-[#e30613]">
             <p>formulario</p>
             <button onClick={resetFlow}>Enviar</button>
           </div>

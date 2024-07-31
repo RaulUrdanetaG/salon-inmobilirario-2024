@@ -75,6 +75,27 @@ export function usePrize() {
     }
   }
 
+  function positionStyles(i) {
+    switch (i) {
+      case 0:
+        return `w-[10%] left-[10.7%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+      case 1:
+        return `w-[10%] left-[34.7%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+      case 2:
+        return `w-[10%] left-[58.4%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+      case 3:
+        return `w-[10%] left-[82.4%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+    }
+  }
+
   return {
     prizeSelection,
     prize,
@@ -85,5 +106,6 @@ export function usePrize() {
     setTempPrizePos,
     setPrizeSelection,
     scramblePrizes,
+    positionStyles,
   };
 }
