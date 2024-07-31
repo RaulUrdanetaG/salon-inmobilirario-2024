@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const prizes = {
   vis: [
@@ -33,8 +35,21 @@ export default function LandingPage() {
   const [prizeSelection, setPrizeSelection] = useState(0);
   const [prize, setPrize] = useState();
   const [prizeOrder, setPrizeOrder] = useState();
+  const [tempPrizePos, setTempPrizePos] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
-  console.log(vis, prizeSelection, activeScreen, prize, prizeOrder);
+  useGSAP(() => {
+    gsap.to(".winner", { opacity: 1, delay: 2 });
+    gsap.to(".notWinner", { opacity: 1, delay: 4 });
+  }, [loaded]);
+
+  useEffect(() => {
+    if (tempPrizePos !== null) {
+      scramblePrizes(tempPrizePos);
+      nextScreen();
+      setTempPrizePos(null); // Reset tempPrizePos after handling
+    }
+  }, [prize]);
 
   function resetFlow() {
     setActiveScreen(0);
@@ -55,8 +70,7 @@ export default function LandingPage() {
       setPrize(prizes.noVis[randomPrize]);
     }
 
-    scramblePrizes(position - 1);
-    nextScreen();
+    setTempPrizePos(position - 1);
   }
 
   function positionStyles(i) {
@@ -75,26 +89,37 @@ export default function LandingPage() {
         }`;
       case 3:
         return `w-[10%] left-[82.4%] ${
-          prizeSelection - 1 === 1 ? "winner" : "notWinner"
+          prizeSelection - 1 === i ? "winner" : "notWinner"
         }`;
     }
   }
 
   function scramblePrizes(prizePos) {
-    const prizeArray = [];
-    for (let i = 0; i < 4; i++) {
-      if (i === prizePos) {
-        prizeArray[i] = prize.selected;
-      } else {
-        const randomPrize = Math.floor(Math.random() * 2);
-        if (vis) {
-          prizeArray[i] = prizes.vis[randomPrize].notSelected;
-        } else {
-          prizeArray[i] = prizes.noVis[randomPrize].notSelected;
-        }
-      }
+    if (vis) {
+      const prizeArray = [
+        "/prizes/vis/1_mueble de baño.png",
+        "/prizes/vis/1_piso.png",
+        "/prizes/vis/1_mueble de baño.png",
+        "/prizes/vis/1_piso.png",
+      ];
+
+      prizeArray.sort(() => Math.random() - 0.5);
+
+      prizeArray[prizePos] = prize.selected;
+      setPrizeOrder(prizeArray);
+    } else {
+      const prizeArray = [
+        "/prizes/no-vis/1.png",
+        "/prizes/no-vis/2.png",
+        "/prizes/no-vis/1.png",
+        "/prizes/no-vis/2.png",
+      ];
+
+      prizeArray.sort(() => Math.random() - 0.5);
+
+      prizeArray[prizePos] = prize.selected;
+      setPrizeOrder(prizeArray);
     }
-    setPrizeOrder(prizeArray);
   }
 
   function renderScreen() {
@@ -115,13 +140,16 @@ export default function LandingPage() {
             <button
               className="absolute top-[43%] left-[23%] bg-transparent w-[220px] h-[220px]"
               onClick={() => {
-                nextScreen();
                 setVis(true);
+                nextScreen();
               }}
             />
             <button
               className="absolute top-[43%] left-[58%] bg-transparent w-[220px] h-[220px]"
-              onClick={nextScreen}
+              onClick={() => {
+                setVis(false);
+                nextScreen();
+              }}
             />
           </div>
         );
@@ -171,6 +199,7 @@ export default function LandingPage() {
               className="w-full h-full"
               autoPlay
               muted
+              onLoadedData={() => setLoaded(true)}
               onEnded={nextScreen}
             >
               <source src={`/Puerta_${prizeSelection}.mp4`} type="video/mp4" />
@@ -193,6 +222,7 @@ export default function LandingPage() {
               className="w-full h-full"
               autoPlay
               muted
+              onLoadedData={() => setLoaded(false)}
               onEnded={nextScreen}
             >
               <source src={prize.video} type="video/mp4" />
