@@ -3,11 +3,13 @@ import { useState } from "react";
 const prizes = {
   vis: [
     {
+      name: "Muebles",
       video: "/prizes/vis/1_vis.mp4",
       selected: "/prizes/vis/Ganador mueble.png",
       notSelected: "/prizes/vis/1_mueble de baño.png",
     },
     {
+      name: "Piso Laminado",
       video: "/prizes/vis/2_vis.mp4",
       selected: "/prizes/vis/Ganador piso.png",
       notSelected: "/prizes/vis/1_piso.png",
@@ -15,11 +17,13 @@ const prizes = {
   ],
   noVis: [
     {
+      name: "1% de descuento",
       video: "/prizes/no-vis/1_Novis.mp4",
       selected: "/prizes/no-vis/1 ganador.png",
       notSelected: "/prizes/no-vis/1.png",
     },
     {
+      name: "2% de descuento",
       video: "/prizes/no-vis/2_Novis.mp4",
       selected: "/prizes/no-vis/2 ganador.png",
       notSelected: "/prizes/no-vis/2.png",

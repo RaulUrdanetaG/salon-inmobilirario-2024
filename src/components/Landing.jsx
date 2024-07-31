@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { usePrize } from "../hooks/usePrize";
+import Form from "./form";
 
 export default function LandingPage() {
   const [activeScreen, setActiveScreen] = useState(0);
@@ -152,8 +153,7 @@ export default function LandingPage() {
       case 6:
         return (
           <div className="h-full w-full flex flex-col justify-center items-center bg-[#e30613]">
-            <p>formulario</p>
-            <button onClick={resetFlow}>Enviar</button>
+            <Form resetFlow={resetFlow} prize={prize.name} />
           </div>
         );
     }
