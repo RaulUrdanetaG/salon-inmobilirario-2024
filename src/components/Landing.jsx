@@ -3,26 +3,26 @@ import { useState } from "react";
 const prizes = {
   vis: [
     {
-      video: "/vis-1.mp4",
-      selected: "bg-red-500",
-      notSelected: "bg-green-500",
+      video: "/prizes/vis/1_vis.mp4",
+      selected: "/prizes/vis/Ganador mueble.png",
+      notSelected: "/prizes/vis/1_mueble de baño.png",
     },
     {
-      video: "/vis-2.mp4",
-      selected: "bg-red-500",
-      notSelected: "bg-yellow-500",
+      video: "/prizes/vis/2_vis.mp4",
+      selected: "/prizes/vis/Ganador piso.png",
+      notSelected: "/prizes/vis/1_piso.png",
     },
   ],
   noVis: [
     {
-      video: "/no-vis-1.mp4",
-      selected: "bg-red-500",
-      notSelected: "bg-green-500",
+      video: "/prizes/no-vis/1_Novis.mp4",
+      selected: "/prizes/no-vis/1 ganador.png",
+      notSelected: "/prizes/no-vis/1.png",
     },
     {
-      video: "/no-vis-2.mp4",
-      selected: <div></div>,
-      notSelected: "bg-yellow-500",
+      video: "/prizes/no-vis/2_Novis.mp4",
+      selected: "/prizes/no-vis/2 ganador.png",
+      notSelected: "/prizes/no-vis/2.png",
     },
   ],
 };
@@ -30,25 +30,71 @@ const prizes = {
 export default function LandingPage() {
   const [activeScreen, setActiveScreen] = useState(0);
   const [vis, setVis] = useState(false);
-  const [priceSelection, setPriceSelection] = useState(0);
+  const [prizeSelection, setPrizeSelection] = useState(0);
   const [prize, setPrize] = useState();
+  const [prizeOrder, setPrizeOrder] = useState();
+
+  console.log(vis, prizeSelection, activeScreen, prize, prizeOrder);
 
   function resetFlow() {
     setActiveScreen(0);
-    setPriceSelection(0);
+    setPrizeSelection(0);
   }
 
   function nextScreen() {
     setActiveScreen((prevScreen) => prevScreen + 1);
   }
 
-  function selectPrice() {
+  function selectPrize(position) {
+    setPrizeSelection(position);
+
     const randomPrize = Math.floor(Math.random() * 2);
     if (vis) {
       setPrize(prizes.vis[randomPrize]);
     } else {
       setPrize(prizes.noVis[randomPrize]);
     }
+
+    scramblePrizes(position - 1);
+    nextScreen();
+  }
+
+  function positionStyles(i) {
+    switch (i) {
+      case 0:
+        return `w-[10%] left-[10.7%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+      case 1:
+        return `w-[10%] left-[34.7%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+      case 2:
+        return `w-[10%] left-[58.4%] ${
+          prizeSelection - 1 === i ? "winner" : "notWinner"
+        }`;
+      case 3:
+        return `w-[10%] left-[82.4%] ${
+          prizeSelection - 1 === 1 ? "winner" : "notWinner"
+        }`;
+    }
+  }
+
+  function scramblePrizes(prizePos) {
+    const prizeArray = [];
+    for (let i = 0; i < 4; i++) {
+      if (i === prizePos) {
+        prizeArray[i] = prize.selected;
+      } else {
+        const randomPrize = Math.floor(Math.random() * 2);
+        if (vis) {
+          prizeArray[i] = prizes.vis[randomPrize].notSelected;
+        } else {
+          prizeArray[i] = prizes.noVis[randomPrize].notSelected;
+        }
+      }
+    }
+    setPrizeOrder(prizeArray);
   }
 
   function renderScreen() {
@@ -93,54 +139,64 @@ export default function LandingPage() {
           <div className="relative h-full w-full flex justify-center items-center bg-[#e30613]">
             <img src="/004.webp" alt="" />
             <button
-              className="absolute md:tablet0"
+              className="absolute bg-transparent md:tablet0"
               onClick={() => {
-                setPriceSelection(0);
-                selectPrice();
-                nextScreen();
+                selectPrize(1);
               }}
             ></button>
             <button
-              className="absolute md:tablet1"
+              className="absolute bg-transparent md:tablet1"
               onClick={() => {
-                setPriceSelection(1);
-                selectPrice();
-                nextScreen();
+                selectPrize(2);
               }}
             ></button>
             <button
-              className="absolute md:tablet2"
+              className="absolute bg-transparent md:tablet2"
               onClick={() => {
-                setPriceSelection(2);
-                selectPrice();
-                nextScreen();
+                selectPrize(3);
               }}
             ></button>
             <button
-              className="absolute md:tablet3"
+              className="absolute bg-transparent md:tablet3"
               onClick={() => {
-                setPriceSelection(3);
-                selectPrice();
-                nextScreen();
+                selectPrize(4);
               }}
             ></button>
           </div>
         );
       case 4:
         return (
-          <div className="h-full w-full flex justify-center items-center bg-[#e30613]">
-            <video className="w-full h-full" autoPlay onEnded={nextScreen}>
-              <source src={prize.video} type="video/mp4" />
+          <div className="h-full w-full flex justify-center items-center bg-[#e30613] relative">
+            <video
+              className="w-full h-full"
+              autoPlay
+              muted
+              onEnded={nextScreen}
+            >
+              <source src={`/Puerta_${prizeSelection}.mp4`} type="video/mp4" />
             </video>
+            {prizeOrder.map((prize, i) => (
+              <img
+                key={i}
+                src={prize}
+                className={`absolute top-1/2 ${positionStyles(i)} `}
+              />
+            ))}
           </div>
         );
       case 5:
         return (
-          <div
-            className="h-full w-full flex justify-center items-center bg-[#e30613]"
-            onClick={nextScreen}
-          >
-            <img src="/005.webp" alt="" />
+          <div className="h-full w-full flex justify-center items-center bg-[#e30613]">
+            {/* This div makes the video play for some reason without it the video doesnt play */}
+            <div className="w-[500px] h-[500px] hidden"></div>
+            <video
+              className="w-full h-full"
+              autoPlay
+              muted
+              onEnded={nextScreen}
+            >
+              <source src={prize.video} type="video/mp4" />
+            </video>
           </div>
         );
       case 6:
