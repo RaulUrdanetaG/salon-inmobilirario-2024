@@ -3,33 +3,27 @@ import { useState } from "react";
 import { uploadToDb } from "../lib/utils";
 
 export default function Form({ resetFlow, prize }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [id, setId] = useState("");
+  const [data, setData] = useState({ name: "", email: "", id: "", phone: "" });
 
   const [error, setError] = useState(false);
 
-  function handleChange(type, value) {
-    if (type === "name") {
-      setName(value);
-    }
-
-    if (type === "email") {
-      setEmail(value);
-    }
-
-    if (type === "id") {
-      setId(value);
-    }
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
   }
 
   async function handleSubmit() {
-    if (name === "" || email === "" || id === "") {
+    if (
+      data.name === "" ||
+      data.email === "" ||
+      data.id === "" ||
+      data.phone === ""
+    ) {
       setError(true);
       return;
     } else {
       setError(false);
-      await uploadToDb(name, email, id, prize);
+      await uploadToDb(data.name, data.email, data.id, data.phone, prize);
       resetFlow();
     }
   }
@@ -40,33 +34,48 @@ export default function Form({ resetFlow, prize }) {
         <label htmlFor="name">Nombre</label>
         <input
           id="name"
+          name="name"
           type="text"
-          value={name}
+          value={data.name}
           autoComplete="off"
           className="rounded-md text-black px-3 py-1"
-          onChange={(e) => handleChange("name", e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="flex flex-col text-white">
         <label htmlFor="email">Email</label>
         <input
           id="email"
+          name="email"
           type="email"
-          value={email}
+          value={data.email}
           autoComplete="off"
           className="rounded-md text-black px-3 py-1"
-          onChange={(e) => handleChange("email", e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div className="flex flex-col text-white">
         <label htmlFor="id">Cedula</label>
         <input
           id="id"
+          name="id"
           type="number"
-          value={id}
+          value={data.id}
           autoComplete="off"
           className="rounded-md text-black px-3 py-1"
-          onChange={(e) => handleChange("id", e.target.value)}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="flex flex-col text-white">
+        <label htmlFor="phone">Celular</label>
+        <input
+          id="phone"
+          name="phone"
+          type="number"
+          value={data.phone}
+          autoComplete="off"
+          className="rounded-md text-black px-3 py-1"
+          onChange={handleChange}
         />
       </div>
       {error && (
