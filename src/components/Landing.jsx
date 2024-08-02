@@ -120,6 +120,7 @@ export default function LandingPage() {
               className="w-full h-full"
               autoPlay
               muted
+              preload="auto"
               onLoadedData={() => setLoaded(true)}
               onEnded={nextScreen}
             >
@@ -143,6 +144,7 @@ export default function LandingPage() {
               className="w-full h-full"
               autoPlay
               muted
+              preload="auto"
               onLoadedData={() => setLoaded(false)}
               onEnded={nextScreen}
             >

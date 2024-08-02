@@ -31,50 +31,52 @@ export default function Form({ resetFlow, prize }) {
   return (
     <form className="w-1/3 flex flex-col text-white gap-2">
       <div className="flex flex-col">
-        <label htmlFor="name">Nombre</label>
+        <label htmlFor="name" className="text-xl">
+          Nombre:
+        </label>
         <input
           id="name"
           name="name"
           type="text"
           value={data.name}
           autoComplete="off"
-          className="rounded-md text-black px-3 py-1"
+          className="rounded-md text-xl text-white px-3 py-2 border-[1.5px] border-[#fef39e] bg-[#e30613] shadow-lg"
           onChange={handleChange}
         />
       </div>
       <div className="flex flex-col text-white">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="text-xl">Email:</label>
         <input
           id="email"
           name="email"
           type="email"
           value={data.email}
           autoComplete="off"
-          className="rounded-md text-black px-3 py-1"
+          className="rounded-md text-xl text-white px-3 py-2 border-[1.5px] border-[#fef39e] bg-[#e30613] shadow-lg"
           onChange={handleChange}
         />
       </div>
       <div className="flex flex-col text-white">
-        <label htmlFor="id">Cedula</label>
+        <label htmlFor="id" className="text-xl">Cedula:</label>
         <input
           id="id"
           name="id"
           type="number"
           value={data.id}
           autoComplete="off"
-          className="rounded-md text-black px-3 py-1"
+          className="rounded-md text-xl text-white px-3 py-2 border-[1.5px] border-[#fef39e] bg-[#e30613] shadow-lg"
           onChange={handleChange}
         />
       </div>
       <div className="flex flex-col text-white">
-        <label htmlFor="phone">Celular</label>
+        <label htmlFor="phone" className="text-xl">Telefono:</label>
         <input
           id="phone"
           name="phone"
           type="number"
           value={data.phone}
           autoComplete="off"
-          className="rounded-md text-black px-3 py-1"
+          className="rounded-md text-xl text-white px-3 py-2 border-[1.5px] border-[#fef39e] bg-[#e30613] shadow-lg"
           onChange={handleChange}
         />
       </div>
@@ -83,7 +85,7 @@ export default function Form({ resetFlow, prize }) {
       )}
       <button
         type="button"
-        className="px-5 py-2 bg-red-500 rounded-lg"
+        className="px-5 py-2 text-xl bg-red-500 rounded-lg border-[1.5px] border-[#fef39e]"
         onClick={handleSubmit}
       >
         Enviar

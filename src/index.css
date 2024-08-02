@@ -4,16 +4,16 @@
 
 @layer utilities {
   .tablet0 {
-    @apply top-1/3 left-[10%] w-[14%] h-[40%];
+    @apply top-[45%] left-[10%] w-[14%] h-[40%];
   }
   .tablet1 {
-    @apply top-1/3 left-[33%] w-[14%] h-[40%];
+    @apply top-[45%] left-[33%] w-[14%] h-[40%];
   }
   .tablet2 {
-    @apply top-1/3 left-[55%] w-[14%] h-[40%];
+    @apply top-[45%] left-[55%] w-[14%] h-[40%];
   }
   .tablet3 {
-    @apply top-1/3 left-[77%] w-[14%] h-[40%];
+    @apply top-[45%] left-[77%] w-[14%] h-[40%];
   }
 }
 
@@ -24,7 +24,7 @@
 
 .welcome-page {
   background-image: url("/001.webp");
-  background-size: cover; /* Ajusta la imagen para cubrir todo el body */
+  background-size: contain; /* Ajusta la imagen para cubrir todo el body */
   background-position: center; /* Centra la imagen en el body */
   background-repeat: repeat;
   margin: 0;
@@ -33,7 +33,7 @@
 
 .open-page {
   background-image: url("/002.webp");
-  background-size: cover; /* Ajusta la imagen para cubrir todo el body */
+  background-size: contain; /* Ajusta la imagen para cubrir todo el body */
   background-position: center; /* Centra la imagen en el body */
   background-repeat: repeat;
   margin: 0;
