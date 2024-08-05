@@ -92,25 +92,25 @@ export default function LandingPage() {
               onClick={() => {
                 selectPrize(1);
               }}
-            ></button>
+            />
             <button
               className="absolute bg-transparent md:tablet1"
               onClick={() => {
                 selectPrize(2);
               }}
-            ></button>
+            />
             <button
               className="absolute bg-transparent md:tablet2"
               onClick={() => {
                 selectPrize(3);
               }}
-            ></button>
+            />
             <button
               className="absolute bg-transparent md:tablet3"
               onClick={() => {
                 selectPrize(4);
               }}
-            ></button>
+            />
           </div>
         );
       case 4:
@@ -130,7 +130,7 @@ export default function LandingPage() {
               <img
                 key={i}
                 src={prize}
-                className={`absolute top-1/2 ${positionStyles(i)} `}
+                className={`absolute top-[53%] ${positionStyles(i)} `}
               />
             ))}
           </div>
