@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { usePrize } from "../hooks/usePrize";
-import Form from "./form";
 
 export default function LandingPage() {
   const [activeScreen, setActiveScreen] = useState(0);
@@ -48,15 +47,17 @@ export default function LandingPage() {
       case 0:
         return (
           <div
-            className="h-full w-full flex justify-center items-center bg-[#e30613]"
+            className="h-full w-full flex justify-center items-center bg-[#e20613] relative"
             onClick={nextScreen}
           >
-            <img src="/001.webp" alt="" />
+            <video className="w-full h-full" autoPlay preload="auto">
+              <source src="/Portada llaves.mp4" type="video/mp4" />
+            </video>
           </div>
         );
       case 1:
         return (
-          <div className="relative h-full w-full flex justify-center items-center bg-[#e30613]">
+          <div className="relative h-full w-full flex justify-center items-center bg-[#e20613]">
             <img src="/002.webp" alt="" />
             <button
               className="absolute top-[43%] left-[23%] bg-transparent w-[220px] h-[220px]"
@@ -77,7 +78,7 @@ export default function LandingPage() {
       case 2:
         return (
           <div
-            className="h-full w-full flex justify-center items-center bg-[#e30613]"
+            className="h-full w-full flex justify-center items-center bg-[#e20613]"
             onClick={nextScreen}
           >
             <img src="/003.webp" alt="" />
@@ -85,7 +86,7 @@ export default function LandingPage() {
         );
       case 3:
         return (
-          <div className="relative h-full w-full flex justify-center items-center bg-[#e30613]">
+          <div className="relative h-full w-full flex justify-center items-center bg-[#e20613]">
             <img src="/004.webp" alt="" />
             <button
               className="absolute bg-transparent md:tablet0"
@@ -115,11 +116,10 @@ export default function LandingPage() {
         );
       case 4:
         return (
-          <div className="h-full w-full flex justify-center items-center bg-[#e30613] relative">
+          <div className="h-full w-full flex justify-center items-center bg-[#e20613] relative">
             <video
               className="w-full h-full"
               autoPlay
-              muted
               preload="auto"
               onLoadedData={() => setLoaded(true)}
               onEnded={nextScreen}
@@ -130,32 +130,25 @@ export default function LandingPage() {
               <img
                 key={i}
                 src={prize}
-                className={`absolute top-[53%] ${positionStyles(i)} `}
+                className={`absolute ${positionStyles(i)} `}
               />
             ))}
           </div>
         );
       case 5:
         return (
-          <div className="h-full w-full flex justify-center items-center bg-[#e30613]">
+          <div className="h-full w-full flex justify-center items-center bg-[#e20613]">
             {/* This div makes the video play for some reason without it the video doesnt play */}
             <div className="w-[500px] h-[500px] hidden"></div>
             <video
               className="w-full h-full"
               autoPlay
-              muted
               preload="auto"
               onLoadedData={() => setLoaded(false)}
-              onEnded={nextScreen}
+              onEnded={resetFlow}
             >
               <source src={prize.video} type="video/mp4" />
             </video>
-          </div>
-        );
-      case 6:
-        return (
-          <div className="h-full w-full flex flex-col justify-center items-center bg-[#e30613]">
-            <Form resetFlow={resetFlow} prize={prize.name} />
           </div>
         );
     }

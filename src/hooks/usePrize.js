@@ -82,19 +82,19 @@ export function usePrize() {
   function positionStyles(i) {
     switch (i) {
       case 0:
-        return `w-[10%] left-[10.7%] ${
+        return `w-[10%] left-[10.7%] ${vis ? "top-[50%]" : "top-[53%]"} ${
           prizeSelection - 1 === i ? "winner" : "notWinner"
         }`;
       case 1:
-        return `w-[10%] left-[34.7%] ${
+        return `w-[10%] left-[34.7%] ${vis ? "top-[50%]" : "top-[53%]"} ${
           prizeSelection - 1 === i ? "winner" : "notWinner"
         }`;
       case 2:
-        return `w-[10%] left-[58.4%] ${
+        return `w-[10%] left-[58.4%] ${vis ? "top-[50%]" : "top-[53%]"} ${
           prizeSelection - 1 === i ? "winner" : "notWinner"
         }`;
       case 3:
-        return `w-[10%] left-[82.4%] ${
+        return `w-[10%] left-[82.4%] ${vis ? "top-[50%]" : "top-[53%]"} ${
           prizeSelection - 1 === i ? "winner" : "notWinner"
         }`;
     }
@@ -105,6 +105,7 @@ export function usePrize() {
     prize,
     prizeOrder,
     tempPrizePos,
+    vis,
     setVis,
     selectPrize,
     setTempPrizePos,
