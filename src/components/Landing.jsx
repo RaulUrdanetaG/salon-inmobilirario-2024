@@ -11,12 +11,9 @@ export default function LandingPage() {
     prize,
     prizeOrder,
     prizeSelection,
-    tempPrizePos,
-    scramblePrizes,
     positionStyles,
     selectPrize,
     setVis,
-    setTempPrizePos,
     setPrizeSelection,
   } = usePrize();
 
@@ -24,14 +21,6 @@ export default function LandingPage() {
     gsap.to(".winner", { opacity: 1, delay: 2 });
     gsap.to(".notWinner", { opacity: 1, delay: 4 });
   }, [loaded]);
-
-  useEffect(() => {
-    if (tempPrizePos !== null) {
-      scramblePrizes(tempPrizePos);
-      nextScreen();
-      setTempPrizePos(null); // Reset tempPrizePos after handling
-    }
-  }, [prize]);
 
   function nextScreen() {
     setActiveScreen((prevScreen) => prevScreen + 1);
@@ -41,6 +30,16 @@ export default function LandingPage() {
     setActiveScreen(0);
     setPrizeSelection(0);
   }
+
+  useEffect(() => {
+    if (activeScreen === 0) {
+      return;
+    } else {
+      nextScreen();
+    }
+  }, [prize]);
+
+  console.log(prize, prizeOrder);
 
   function renderScreen() {
     switch (activeScreen) {
@@ -129,7 +128,9 @@ export default function LandingPage() {
             {prizeOrder.map((prize, i) => (
               <img
                 key={i}
-                src={prize}
+                src={
+                  prizeSelection - 1 === i ? prize.selected : prize.notSelected
+                }
                 className={`absolute ${positionStyles(i)} `}
               />
             ))}

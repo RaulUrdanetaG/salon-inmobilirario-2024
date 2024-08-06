@@ -38,43 +38,33 @@ export function usePrize() {
   const [tempPrizePos, setTempPrizePos] = useState(null);
   const [vis, setVis] = useState(false);
 
-  function selectPrize(position) {
-    setPrizeSelection(position);
-
-    const randomPrize = Math.floor(Math.random() * 2);
-    if (vis) {
-      setPrize(prizes.vis[randomPrize]);
-    } else {
-      setPrize(prizes.noVis[randomPrize]);
-    }
-
-    setTempPrizePos(position - 1);
-  }
-
-  function scramblePrizes(prizePos) {
+  function selectPrize(prizePos) {
+    setPrizeSelection(prizePos);
     if (vis) {
       const prizeArray = [
-        "/prizes/vis/1_mueble de baño.png",
-        "/prizes/vis/1_piso.png",
-        "/prizes/vis/1_mueble de baño.png",
-        "/prizes/vis/1_piso.png",
+        prizes.vis[0],
+        prizes.vis[1],
+        prizes.vis[0],
+        prizes.vis[1],
       ];
 
       prizeArray.sort(() => Math.random() - 0.5);
+      console.log(prizeArray);
+      console.log(prizeArray[prizePos - 1]);
 
-      prizeArray[prizePos] = prize.selected;
+      setPrize(prizeArray[prizePos - 1]);
       setPrizeOrder(prizeArray);
     } else {
       const prizeArray = [
-        "/prizes/no-vis/1.png",
-        "/prizes/no-vis/2.png",
-        "/prizes/no-vis/1.png",
-        "/prizes/no-vis/2.png",
+        prizes.noVis[0],
+        prizes.noVis[1],
+        prizes.noVis[0],
+        prizes.noVis[1],
       ];
 
       prizeArray.sort(() => Math.random() - 0.5);
 
-      prizeArray[prizePos] = prize.selected;
+      setPrize(prizeArray[prizePos - 1]);
       setPrizeOrder(prizeArray);
     }
   }
@@ -110,7 +100,7 @@ export function usePrize() {
     selectPrize,
     setTempPrizePos,
     setPrizeSelection,
-    scramblePrizes,
+    //scramblePrizes,
     positionStyles,
   };
 }
