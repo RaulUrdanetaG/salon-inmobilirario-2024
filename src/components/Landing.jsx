@@ -39,8 +39,6 @@ export default function LandingPage() {
     }
   }, [prize]);
 
-  console.log(prize, prizeOrder);
-
   function renderScreen() {
     switch (activeScreen) {
       case 0:
