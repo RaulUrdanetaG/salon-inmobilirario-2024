@@ -6,13 +6,13 @@ const prizes = {
       name: "Muebles",
       video: "/prizes/vis/1_vis.mp4",
       selected: "/prizes/vis/Ganador mueble.png",
-      notSelected: "/prizes/vis/1_mueble de baño.png",
+      notSelected: "/prizes/vis/mueble.png",
     },
     {
       name: "Piso Laminado",
       video: "/prizes/vis/2_vis.mp4",
       selected: "/prizes/vis/Ganador piso.png",
-      notSelected: "/prizes/vis/1_piso.png",
+      notSelected: "/prizes/vis/piso.png",
     },
   ],
   noVis: [
@@ -49,8 +49,6 @@ export function usePrize() {
       ];
 
       prizeArray.sort(() => Math.random() - 0.5);
-      console.log(prizeArray);
-      console.log(prizeArray[prizePos - 1]);
 
       setPrize(prizeArray[prizePos - 1]);
       setPrizeOrder(prizeArray);
